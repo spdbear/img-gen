@@ -1,11 +1,20 @@
 <template>
   <div class="container">
-    <h1 class="title">telop-generator</h1>
+    <h1 class="title">be-youtuber</h1>
     <div>
-      <Logo :text="text" :color1="color1" :color2="color2" :url="url" />
+      <Logo
+        :text="text"
+        :size="size"
+        :color1="color1"
+        :color2="color2"
+        :url="url"
+      />
     </div>
     <div>
       <input v-model="text" placeholder="ここにテキストを入力" />
+      <input v-model="size" type="range" value="80" min="20" max="200" />{{
+        size
+      }}
       <input v-model="color1" type="color" value="#ffffff" />色1
       <input v-model="color2" type="color" value="#000000" />色2
       <input
@@ -14,12 +23,16 @@
         @change="handleInputImage"
       />
     </div>
+    <div>
+      <button @click="saveImage">画像を保存</button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import Logo from '~/components/Logo.vue'
+const ssap = require('save-svg-as-png')
 type HTMLInputEvent = Event & {
   target: HTMLInputElement & EventTarget
 }
@@ -34,6 +47,7 @@ export default Vue.extend({
       color1: '#ffffff',
       color2: '#000000',
       url: '',
+      size: 80,
     }
   },
   methods: {
@@ -43,6 +57,9 @@ export default Vue.extend({
       }
       const file = e.target.files[0]
       this.url = window.URL.createObjectURL(file)
+    },
+    saveImage() {
+      ssap.saveSvgAsPng(document.getElementById('svg'), 'download.png')
     },
   },
 })

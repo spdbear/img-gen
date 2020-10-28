@@ -1,23 +1,25 @@
 <template>
   <div>
     <svg
+      id="svg"
       class="NuxtLogo"
-      width="960"
+      width="720"
       height="540"
-      viewBox="0 0 960 540"
+      viewBox="0 0 720 540"
       xmlns="http://www.w3.org/2000/svg"
       @mousemove="touchMove($event)"
       @mouseup="touchEnd($event)"
       @mouseleave="touchEnd($event)"
     >
-      <image :href="url" width="960" height="540" />
+      <image :href="url" width="720" height="540" />
       <rect
         x="0"
         y="0"
-        width="960"
+        width="720"
         height="540"
         fill="transparent"
         stroke="black"
+        stroke-width="2"
       />
       <text
         class="background2 text"
@@ -64,6 +66,7 @@ type Props = {
   color1: string
   color2: string
   url: string
+  size: number
 }
 
 export default defineComponent({
@@ -84,18 +87,18 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    size: {
+      type: Number,
+      default: 80,
+    },
   },
   setup(props: Props) {
     const pos = reactive({
       x: 0,
       y: 100,
     })
-    const size = ref(80)
-    const stroke1 = ref(3)
-    const stroke2 = ref(10)
-    const text = computed(() => props.text)
-    const color1 = computed(() => props.color1)
-    const color2 = computed(() => props.color2)
+    const stroke1 = computed(() => props.size / 25)
+    const stroke2 = computed(() => props.size / 8)
     const isMouseDown = ref(false)
     const prevPos = reactive({
       x: pos.x,
@@ -104,7 +107,6 @@ export default defineComponent({
 
     const touchStart = (e: MouseEvent) => {
       isMouseDown.value = true
-      console.log('touch start:%d,%d', e.offsetX, e.offsetY)
       prevPos.x = e.offsetX
       prevPos.y = e.offsetY
     }
@@ -129,13 +131,9 @@ export default defineComponent({
     }
 
     return {
-      color1,
-      color2,
       stroke1,
       stroke2,
-      text,
       pos,
-      size,
       touchStart,
       touchMove,
       touchEnd,
@@ -152,5 +150,6 @@ export default defineComponent({
 text {
   stroke-linejoin: round;
   font-family: 'けいふぉんと', sans-serif;
+  cursor: grab;
 }
 </style>
