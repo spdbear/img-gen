@@ -1,35 +1,61 @@
 <template>
   <svg
     class="NuxtLogo"
-    width="245"
-    height="180"
-    viewBox="0 0 452 342"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M139 330l-1-2c-2-4-2-8-1-13H29L189 31l67 121 22-16-67-121c-1-2-9-14-22-14-6 0-15 2-22 15L5 303c-1 3-8 16-2 27 4 6 10 12 24 12h136c-14 0-21-6-24-12z"
-      fill="#00C58E"
-    />
-    <path
-      d="M447 304L317 70c-2-2-9-15-22-15-6 0-15 3-22 15l-17 28v54l39-67 129 230h-49a23 23 0 0 1-2 14l-1 1c-6 11-21 12-23 12h76c3 0 17-1 24-12 3-5 5-14-2-26z"
-      fill="#108775"
-    />
-    <path
-      d="M376 330v-1l1-2c1-4 2-8 1-12l-4-12-102-178-15-27h-1l-15 27-102 178-4 12a24 24 0 0 0 2 15c4 6 10 12 24 12h190c3 0 18-1 25-12zM256 152l93 163H163l93-163z"
-      fill="#2F495E"
-    />
+    width="960"
+    height="540"
+    viewBox="0 0 960 540"
+    xmlns="http://www.w3.org/2000/svg">
+    <text class="background2 text" :x="pos.x" :y="pos.y" :font-size="size" :stroke="color2" :stroke-width="stroke1+stroke2">{{text}}</text>
+    <text class="background text" :x="pos.x" :y="pos.y" :font-size="size" :stroke="color1" :stroke-width="stroke2">{{text}}</text>
+    <text class="foreground text" :x="pos.x" :y="pos.y" :font-size="size" :stroke="color2" :fill="color1" :stroke-width="stroke1">{{text}}</text>
+    <rect x="0" y="0" width="960" height="540" fill="transparent" stroke="black"/>
   </svg>
 </template>
+<script lang="ts">
+import { defineComponent, ref, reactive, computed } from '@vue/composition-api'
+
+type Props = {
+  text: string
+}
+
+export default defineComponent({
+  props: {
+    text: {
+      type: String,
+      default: ""
+    }
+  },
+  setup(props: Props) {
+    const pos = reactive({
+      x: 0,
+      y: 100
+    })
+    const size = ref(80)
+    const color1 = ref("rgb(255,255,255)")
+    const color2 = ref("rgb(0,0,0)")
+    const stroke1 = ref(3)
+    const stroke2 = ref(10)
+    const text = computed(()=>props.text)
+    return {
+      color1,
+      color2,
+      stroke1,
+      stroke2,
+      text,
+      pos,
+      size
+    }
+  }
+})
+</script>
 
 <style>
 .NuxtLogo {
   animation: 1s appear;
   margin: auto;
 }
-
-@keyframes appear {
-  0% {
-    opacity: 0;
-  }
+text {
+  stroke-linejoin: round;
+  font-family: 'けいふぉんと', sans-serif
 }
 </style>

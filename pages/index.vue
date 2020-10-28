@@ -1,34 +1,28 @@
 <template>
   <div class="container">
     <div>
-      <Logo />
-      <h1 class="title">img-gen</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <h1 class="title">telop-generator</h1>
+      <Logo :text="text" />
     </div>
+    <input v-model="text" placeholder="YouTubeっぽい字幕">
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Logo from '~/components/Logo.vue'
 
-export default Vue.extend({})
+export default Vue.extend({
+  components: {
+    Logo
+  },
+  data: function() {
+    return {
+      text: ""
+    }
+  }
+
+})
 </script>
 
 <style>
