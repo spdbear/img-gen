@@ -4,7 +4,7 @@
       <h1 class="title">telop-generator</h1>
       <Logo :text="text" />
     </div>
-    <input v-model="text" placeholder="YouTubeっぽい字幕">
+    <input v-model="text" placeholder="YouTubeっぽい字幕" />
   </div>
 </template>
 
@@ -14,14 +14,13 @@ import Logo from '~/components/Logo.vue'
 
 export default Vue.extend({
   components: {
-    Logo
+    Logo,
   },
-  data: function() {
+  data() {
     return {
-      text: ""
+      text: '',
     }
-  }
-
+  },
 })
 </script>
 
